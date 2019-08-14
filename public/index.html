@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Chat em NodeJs</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <form id="chat">
+        <input type="text" name="username" placeholder="Digite seu nome">
+        <div class="messages"></div>
+        <input type="text" name="message" placeholder="Digite sua mensagem">
+        <button type="submit">Enviar</button>
+    </form>
+    <script type="text/javascript">
+        var socket = io('http://localhost:3000');
+
+        function renderMessage(message) {
+            $('.messages').append('<div class="message"><strong> '+ message.autor +'</strong>: '+ message.message +'</div>')
+        }
+
+        socket.on('previousMessages', function(messages){
+            for(message of messages){
+                renderMessage(message);
+            }
+        })
+
+        socket.on('receiveMessage', function(message){
+            renderMessage(message);
+        });
+        
+        $('#chat').submit(function(event){
+            event.preventDefault();
+
+            var autor = $('input[name=username]').val();
+            var message = $('input[name=message]').val();
+            
+            if (autor.length && message.length) {
+                var messageObject = {
+                    autor: autor,
+                    message: message
+                }
+                renderMessage(messageObject);
+
+                socket.emit('sendMessage', messageObject);
+            } else{
+                console.log("sem mensagens");
+            }
+        })
+    </script>
+</body>
+</html>
