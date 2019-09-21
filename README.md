@@ -3,7 +3,11 @@
 
 ## Imagens do Projeto:
 <img src="imgs/chat1.png" width="100%">
+
 ## Primeiro Passo:
 
 npm install
 
+## Segundo Passo:
+
+docker-compose up
