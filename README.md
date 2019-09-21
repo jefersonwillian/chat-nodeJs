@@ -7,9 +7,7 @@
 <img src="https://socket.io/css/images/logo.svg" width="300">
 
 ## Imagens do Projeto:
-<img src="imgs/chat1.png" width="300">
-<img src="imgs/chat2.png" width="300">
-<img src="imgs/chat3.png" width="300">
+<img src="imgs/chat1.png" width="100%">
 ## Primeiro Passo:
 
 npm install
